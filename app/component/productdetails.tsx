@@ -209,17 +209,41 @@ export default function ProductDetailsScreen() {
   <Image source={product.image} style={styles.list} />
 </View>
  <View style={styles.buttonContainer}>
-  <Button 
+  {/* <Button 
         title="Buy Now"
         onPress={() =>
           Alert.alert("Success", "Proceed to Payment?", [
             {
               text: "OK",
-              onPress: () => router.push("/product"),
+              onPress: () => router.push({
+                pathname:"/checkout",
+                params:{
+                  id:product.id
+                }
+              )};
+                
             },
           ])
         }
-      />
+      /> */}
+
+      <Button 
+  title="Buy Now"
+  onPress={() =>
+    Alert.alert("Success", "Proceed to Payment?", [
+      {
+        text: "OK",
+        onPress: () =>
+          router.push({
+            pathname: "/checkout",
+            params: {
+              id: product.id
+            }
+          }),
+      },
+    ])
+  }
+/>
       </View>
     </ScrollView>
     

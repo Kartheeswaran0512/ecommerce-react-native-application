@@ -146,7 +146,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { router, Router } from "expo-router";
+import { router } from "expo-router";
 
 import api from "../../services/api";
 

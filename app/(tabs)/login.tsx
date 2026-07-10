@@ -28,10 +28,13 @@ import {
   Button,
   Alert,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 
 import api from "../../services/api";
 import { router } from "expo-router";
+
+import ForgotPassword from "./forgetPassword";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -121,6 +124,14 @@ else {
         secureTextEntry  // hide password
         style={styles.input}
       />
+      
+      <TouchableOpacity
+  onPress={() => router.push("/forgetPassword")}
+>
+  <Text style={ styles.forget }>
+    Forgot Password?
+  </Text>
+</TouchableOpacity>
 
       <Button
         title="submit"
@@ -139,7 +150,13 @@ const styles = StyleSheet.create({
     //padding: 20,
     //backgroundColor:'black'
   },
-
+   forget:{
+     alignSelf:"flex-end",
+     justifyContent:"flex-end",
+     color: "blue",
+     //marginTop: 8,
+     marginBottom: 10,
+   },
   title: {
     fontSize: 28,
     fontWeight: "bold",

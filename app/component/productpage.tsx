@@ -532,7 +532,14 @@ export default function ProductsScreen() {
 
             <Text>₹{item.price}</Text>
 
-            <Button title="Buy Now" onPress={() => {}} />
+            <Button title="Buy Now" onPress={() => {router.push({
+              pathname: "/product_details",
+              params: {
+                id: item.id,
+              },
+            })
+          }}
+             />
           </View>
         )}
       />

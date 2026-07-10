@@ -5,15 +5,23 @@ const authRoutes = require("../backend/routes/auth");
 
 const productRoutes= require("../backend/routes/productRoutes");
 
+const orderRoutes= require("../backend/routes/orderRoutes")
+ 
+const paymentRoutes= require("../backend/routes/paymentRoutes");
+
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use("/api",productRoutes);
+
+app.use("/api/orders",orderRoutes);
+
+app.use("/api/payments", paymentRoutes);
 
 // Database
 require("./config/db");

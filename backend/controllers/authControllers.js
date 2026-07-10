@@ -45,6 +45,85 @@ const register = async(req, res) => {
   });
 };
 
+// const forgotPassword = async(req,res) =>{
+//   const { email } = req.body;
+
+// const [rows] = await db.query(             // promise used because aync and await 
+//   "SELECT * FROM users WHERE email = ?",
+//   [email]
+// );
+
+// const user = rows[0];
+// if (!user) {
+//   return res.status(404).json({
+//     message: "Email not found",
+//   });
+// }
+// }
+
+const forgotPassword = (req, res) => {
+  const { email } = req.body;
+
+  const sql = "SELECT * FROM users WHERE email = ?";
+
+  db.query(sql, [email], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database Error",
+      });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "Email not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Reset link sent successfully",
+    });
+  });
+};
+
+const resetPassword = (req, res) => {
+  const { email, newPassword } = req.body;
+
+  const sql = "SELECT * FROM users WHERE email = ?";
+
+  db.query(sql, [email], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Database Error",
+      });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({
+        message: "Email not found",
+      });
+    }
+
+    const updateSql =
+      "UPDATE users SET password = ? WHERE email = ?";
+
+    db.query(
+      updateSql,
+      [newPassword, email],
+      (err, updateResult) => {
+        if (err) {
+          return res.status(500).json({
+            message: "Password update failed",
+          });
+        }
+
+        res.status(200).json({
+          message: "Password reset successfully",
+        });
+      }
+    );
+  });
+};
+
 const login = (req, res) => {
   const { email, password } = req.body;
 
@@ -101,4 +180,4 @@ const login = (req, res) => {
   });
 };
 
-module.exports = { register,login };
+module.exports = { register,login,forgotPassword,resetPassword};
