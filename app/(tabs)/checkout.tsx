@@ -1,5 +1,5 @@
-import { View, Text, Button, StyleSheet, Alert } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { View, Text, Button, StyleSheet, Alert, TouchableOpacity, ScrollView } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 
 export default function CheckoutScreen() {
@@ -100,13 +100,20 @@ const handlePlaceOrder = async () => {
 };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+        <TouchableOpacity
+  style={styles.button}
+  onPress={()=>router.push("/login")}
+>
+  <Text style={styles.title}>logout</Text>
+</TouchableOpacity>
+      <View style={styles.card}>
 
-      <Text style={styles.title}>
+      <Text style={styles.checkout}>
         Checkout
       </Text>
 
-      <Text>
+      <Text style={styles.id}>
         Product ID: {id}
       </Text>
 
@@ -114,25 +121,32 @@ const handlePlaceOrder = async () => {
         Order Summary
       </Text>
 
-      <Text>
+      <Text style={styles.price}>
         Product Price: ₹2000
       </Text>
 
-      <Text>
+      <Text style={styles.Amount}>
         Total Amount: ₹2000
       </Text>
 
 
-      <Button
+      {/* <Button 
         title="Place Order"
     //     onPress={() => {
     //         handlePlaceOrder
     //       console.log("Create Order API");
     //     }}
     //   />
-    onPress={handlePlaceOrder}/>
+    onPress={handlePlaceOrder}/> */}
+    <TouchableOpacity
+  style={styles.button}
+  onPress={handlePlaceOrder}
+>
+  <Text style={styles.title}>Place Order</Text>
+</TouchableOpacity>
 
     </View>
+    </ScrollView>
   );
 }
 
@@ -142,19 +156,59 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     padding:20,
-    justifyContent:"center"
+    justifyContent:"center",
+    borderRadius:8,
+    alignItems:"center"
+  },
+  card :{
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 20,
+    elevation: 5,          // Android shadow
+    shadowColor: "#000",   // iOS shadow
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  checkout:{
+    color :"black",
+    fontWeight:"bold",
+    fontSize : 25
+  },
+  id :{
+    marginTop:10
   },
 
   title:{
-    fontSize:28,
+    fontSize:20,
     fontWeight:"bold",
-    marginBottom:20
+    marginBottom:10,
+    color:"blue"
   },
 
   heading:{
     fontSize:20,
     fontWeight:"bold",
     marginTop:20
+  },
+  button :{
+    //marginTop : 30,
+      backgroundColor: "lightyellow",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop:15,
+  },
+  price :{
+    marginTop:5
+  },
+  Amount :{
+    marginTop: 5
   }
 
 });

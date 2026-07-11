@@ -144,17 +144,20 @@ import {
   Button,
   Alert,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 
 import { router } from "expo-router";
 
-import api from "../../services/api";
+import api from "../services/api";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -222,7 +225,7 @@ else {
   //   console.log(error);
   // }
   try {
-  const response = await api.post("/register", {
+  const response = await api.post("http://192.168.0.36:5000/api/auth/register", {
     name,
     email,
     password,
@@ -234,12 +237,13 @@ else {
     [
       {
         text: "OK",
-        onPress: () => router.push("/contact"),
+        onPress: () => router.push("/login"),
       },
     ]
   );
 
 } catch (error) {
+  console.log("error",error);
   Alert.alert("Registration Failed");
 }
 }
@@ -268,24 +272,58 @@ else {
       />
       <Text style={styles.error}>{emailError}</Text>
 
-      <Text>Password</Text>
+      {/* <Text>Password</Text>
       <TextInput
         placeholder="Enter Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         style={styles.input}
-      />
+      /> */}
+      <View style={styles.passwordContainer}>
+  <TextInput
+    placeholder="Enter Password"
+    value={password}
+    onChangeText={setPassword}
+    secureTextEntry={!showPassword}
+    style={styles.passwordInput}
+  />
+
+  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+    <Ionicons
+      name={showPassword ? "eye-off-outline" : "eye-outline"}
+      size={24}
+      color="gray"
+    />
+  </TouchableOpacity>
+</View>
       <Text style={styles.error}>{passwordError}</Text>
 
-      <Text>Confirm Password</Text>
+      {/* <Text>Confirm Password</Text>
       <TextInput
         placeholder="Confirm Password"
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
         style={styles.input}
-      />
+      /> */}
+      <View style={styles.passwordContainer}>
+  <TextInput
+    placeholder="Confirm Password"
+    value={confirmPassword}
+    onChangeText={setConfirmPassword}
+    secureTextEntry={!showPassword}
+    style={styles.passwordInput}
+  />
+
+  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+    <Ionicons
+      name={showPassword ? "eye-off-outline" : "eye-outline"}
+      size={24}
+      color="gray"
+    />
+  </TouchableOpacity>
+</View>
       <Text style={styles.error}>{confirmPasswordError}</Text>
 
       <Button
@@ -310,6 +348,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 25,
   },
+
+  passwordContainer: {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 1,
+  borderColor: "#ccc",
+  borderRadius: 8,
+  paddingHorizontal: 10,
+},
+
+passwordInput: {
+  flex: 1,
+  height: 50,
+},
 
   input: {
     borderWidth: 1,

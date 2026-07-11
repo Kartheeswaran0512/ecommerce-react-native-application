@@ -12,14 +12,28 @@
 //   </Stack>
 //   )
 // }
-import { Stack } from 'expo-router';
+// import { Stack } from 'expo-router';
 
+
+// export default function RootLayout() {
+//   return (
+//     <Stack>
+//       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+//     </Stack>
+//   );
+// }
+
+
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="login" />
+      <Stack.Screen name="signup" />
+      <Stack.Screen name="forgetPassword" />
+      <Stack.Screen name="resetPassword" />
+      <Stack.Screen name="(tabs)" />
     </Stack>
   );
 }
-

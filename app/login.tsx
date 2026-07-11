@@ -31,14 +31,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import api from "../../services/api";
+import api from "../services/api";
 import { router } from "expo-router";
 
 import ForgotPassword from "./forgetPassword";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // const handleLogin = () => {
   //   Alert.alert(
@@ -80,14 +82,15 @@ else {
   setPasswordError("");
 
   try {
-    const response = await api.post("/login", {
+    const response = await api.post("http://192.168.0.36:5000/api/auth/login", {
       email,
       password,
     });
 
     Alert.alert("login successfully",response.data.message,[{
       text :"OK",
-      onPress:()=> router.push("/product"),
+      //onPress:()=> router.push("/product"),
+      onPress:()=> router.replace("/(tabs)"),
     },]);
     //console.log(response.data);
 
@@ -109,6 +112,10 @@ else {
 </Text>
        <Text style={styles.error}>
   {passwordError}
+  <TouchableOpacity onPress={()=>router.push("/signup")}>
+
+ <Text style={styles.account}> I dont have account</Text>
+ </TouchableOpacity>
 </Text>
       <TextInput
         placeholder="Enter Email"
@@ -117,13 +124,31 @@ else {
         style={styles.input}
       />
 
-      <TextInput
+      {/* <TextInput
         placeholder="Enter Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry  // hide password
         style={styles.input}
-      />
+      /> */}
+
+      <View style={styles.passwordContainer}>
+  <TextInput
+    placeholder="Enter Password"
+    value={password}
+    onChangeText={setPassword}
+    secureTextEntry={!showPassword}
+    style={styles.passwordInput}
+  />
+
+  <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+    <Ionicons
+      name={showPassword ? "eye-off-outline" : "eye-outline"}
+      size={24}
+      color="gray"
+    />
+  </TouchableOpacity>
+</View>
       
       <TouchableOpacity
   onPress={() => router.push("/forgetPassword")}
@@ -133,10 +158,21 @@ else {
   </Text>
 </TouchableOpacity>
 
-      <Button
+{/* <TouchableOpacity onPress={()=>router.push("/signup")}>
+
+ <Text style={styles.account}> I dont have account</Text>
+ </TouchableOpacity> */}
+
+      {/* <Button
         title="submit"
         onPress={handleLogin}
-      />
+      /> */}
+      <TouchableOpacity
+      style={styles.loginbutton}
+        onPress={handleLogin}>
+          <Text  style={styles.loginpage}>login</Text>
+        </TouchableOpacity>
+        
     </View>
   );
 }
@@ -146,14 +182,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal:20
+    paddingHorizontal:15,
     //padding: 20,
     //backgroundColor:'black'
   },
+//   passwordContainer: {
+//   flexDirection: "row",
+//   alignItems: "center",
+//   borderWidth: 1,
+//   borderColor: "#ccc",
+//   borderRadius: 8,
+//   paddingHorizontal: 15,
+// },
+passwordContainer: {
+  flexDirection: "row",
+  alignItems: "center",
+  borderWidth: 1,
+  borderColor: "#ccc",
+  borderRadius: 8,
+  paddingHorizontal: 15,
+  width: "100%",
+},
+passwordInput: {
+  flex: 1,
+  height: 50,
+},
    forget:{
      alignSelf:"flex-end",
      justifyContent:"flex-end",
      color: "blue",
+     marginLeft: 200,
      //marginTop: 8,
      marginBottom: 10,
    },
@@ -163,9 +221,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     textAlign:'center',
   },
+  loginbutton :{
+    backgroundColor:"lightblue",
+    paddingVertical:12,
+    paddingHorizontal:30,
+    borderRadius: 5,
+    marginRight: 25
+  },
+  loginpage :{
+      fontSize : 20,
+  },
+  account :{
+    marginLeft:200,
+    color:"blue"
+  },
 
   input: {
-    width: "90%",
+    width: "100%",
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 8,

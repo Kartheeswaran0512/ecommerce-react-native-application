@@ -8,12 +8,13 @@ export default function TabLayout() {
         name="index"  // ROUTER (index.tsx)
         options={{
           title: 'Home',
+          headerShown:false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         //name="about"
         name="signup"  // ROUTER (signup.tsx)
         options={{
@@ -32,11 +33,12 @@ export default function TabLayout() {
             <Ionicons name="log-in-outline" color={color} size={size} />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
          name="product"  // ROUTER (product.tsx)
          options={{
-          title:'Product',
+          headerShown:false,
+          //title:'Product',
           tabBarIcon:({ color,size})=>(
             <Ionicons name="pricetags" color={color} size={size} />
           ),
@@ -45,12 +47,13 @@ export default function TabLayout() {
       <Tabs.Screen
           name="product_details"  // ROUTER (product_details.tsx)
           options={{
+            headerShown:false, // dont show the default header at the top
             tabBarIcon :({color,size})=>(
               <Ionicons name="pricetag-outline" color={color} size={size}/>
             ),
           }}
           />
-          <Tabs.Screen 
+          {/* <Tabs.Screen 
             name="forgetPassword"  // routing file name ( eg forgetPassword.tsx)
             options={{
               tabBarIcon :({color,size})=>(
@@ -65,10 +68,11 @@ export default function TabLayout() {
               <Ionicons name="lock-closed-outline" color={color} size={size}/>
             ),
              }}
-             />
+             /> */}
              <Tabs.Screen 
                name="checkout"
                options={{
+                headerShown:false,
                           tabBarIcon :({color,size})=>(
               <Ionicons name="pricetags" color={color} size={size}/>
             ),

@@ -491,6 +491,8 @@ import { router } from "expo-router";
 
 import { products } from "../../data/product";
 
+import Stack from "expo-router";
+
 export default function ProductsScreen() {
   const [search, setSearch] = useState("");
 
@@ -571,7 +573,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 8,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "skyblue",
     alignItems: "center",
     elevation: 3,
   },

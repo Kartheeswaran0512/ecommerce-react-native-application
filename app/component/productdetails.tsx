@@ -169,15 +169,15 @@ export default function ProductDetailsScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image source={product.image} style={styles.image} />
+      <Image source={product.image} style={[styles.image,{alignSelf:"center"}]} />
 
-      <Text style={styles.name}>{product.name}</Text>
+      <Text style={[styles.name,{alignSelf:"center"}]}>{product.name}</Text>
 
 
-      <Text style={styles.price}>₹{product.price}</Text>
+      <Text style={[styles.price,{alignSelf:"center"}]}>₹{product.price}</Text>
 
-      <View style={styles.badge}>
-  <Text style={styles.badgeText}>
+      <View style={[styles.badge,{backgroundColor:"green"}]}>
+  <Text style={[styles.badgeText, {alignSelf:"center"}]}>
     {product.rating} ★
   </Text>
 </View>
@@ -203,10 +203,12 @@ export default function ProductDetailsScreen() {
       {/* <Image source={product.image} style={styles.list}/>
        <Image source={product.image} style={styles.list}/>
         <Image source={product.image} style={styles.list}/> */}
+        <View style={styles.card}>
         <View style={styles.row}>
   <Image source={product.image} style={styles.list} />
   <Image source={product.image} style={styles.list} />
   <Image source={product.image} style={styles.list} />
+</View>
 </View>
  <View style={styles.buttonContainer}>
   {/* <Button 
@@ -253,9 +255,10 @@ export default function ProductDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    alignItems: "center",
+    //alignItems: "center",
     padding: 20,
-    backgroundColor:'lightblue'
+    backgroundColor:'lightblue',
+    alignItems:"stretch",
   },
 
   image: {
@@ -267,7 +270,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: "bold",
-    marginTop: 15,
+    marginTop: 10,
   },
 
   price: {
@@ -275,6 +278,7 @@ const styles = StyleSheet.create({
     color: "green",
     marginVertical: 10,
   },
+ 
 
   //  button: {
   //   position: "absolute",
@@ -284,10 +288,10 @@ const styles = StyleSheet.create({
   // },
   buttonContainer :{
     position: "absolute",
-    bottom: 20,
+    bottom: 9,
     // left: 10,
     // right: 10,
-    width : 200,
+    width : 150,
     alignSelf: "center"
     
   },
@@ -309,15 +313,34 @@ const styles = StyleSheet.create({
   //   flexDirection: "row",
   //   justifyContent:"flex-start"
   // }
+
+   card :{
+     //flex: 1,
+     width:"100%",
+    marginTop: 15,
+    //bottom:1,
+    padding: 10,
+    backgroundColor: "white",
+    alignItems: "center",
+    borderRadius:8,
+    elevation: 3,
+  },
     row: {
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-evenly",
+    //width:100,
+    alignItems:"center"
   },
 
   list: {
-    width: 150,
-    height: 100,
-    marginRight: 10,
+    //:1,
+    width: 120,
+    height:90,
+    //height: 100,
+    aspectRatio:1,
+    borderRadius:8,
+    //marginRight: 10,
+    resizeMode:"cover"
   },
    badge: {
     backgroundColor: "green",
@@ -325,7 +348,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 4,
     justifyContent:'center',
-    //alignSelf: "flex-end",
+    alignSelf: "center",
   },
 
   badgeText: {

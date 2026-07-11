@@ -6,6 +6,7 @@ const db = require("../config/db");
 const register = async(req, res) => {
   
   const { name, email, password } = req.body;
+  console.log("data:",name,email,password);
  // const hashedPassword = await bcrypt.hash(password, 10);
 
 //   const isMatch = await bcrypt.compare(password, result[0].password);

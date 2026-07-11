@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { router } from "expo-router";
 export default function ForgotPassword() {
   const[email,setEmail]=useState("");
 //   const handleForgotPassword = async () => {
@@ -21,8 +21,37 @@ export default function ForgotPassword() {
 //   }
 // };
 
-const handleForgotPassword = async () => {
+// const handleForgotPassword = async () => {
 
+//   if (!email) {
+//     alert("Please enter email");
+//     return;
+//   }
+
+//   try {
+//     const response = await axios.post(
+//       //"http://localhost:5000/api/auth/forgotpassword",
+//       "http://192.168.0.36:5000/api/auth/forgotpassword",
+//       {
+//         email,
+//       }
+//     );
+
+
+//     console.log("API response:", response.data);
+
+
+//     alert(response.data.message);
+
+//   } catch (error) {
+//     alert("Something went wrong");
+//   }
+// };
+
+
+
+
+const handleForgotPassword = async () => {
   if (!email) {
     alert("Please enter email");
     return;
@@ -30,18 +59,22 @@ const handleForgotPassword = async () => {
 
   try {
     const response = await axios.post(
-      //"http://localhost:5000/api/auth/forgotpassword",
       "http://192.168.0.36:5000/api/auth/forgotpassword",
       {
         email,
       }
     );
 
-
-    console.log("API response:", response.data);
-
-
-    alert(response.data.message);
+    Alert.alert(
+      "Success",
+      response.data.message,
+      [
+        {
+          text: "OK",
+          onPress: () => router.push("/resetPassword"),
+        },
+      ]
+    );
 
   } catch (error) {
     alert("Something went wrong");
