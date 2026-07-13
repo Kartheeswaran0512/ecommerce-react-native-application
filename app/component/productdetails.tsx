@@ -132,24 +132,33 @@
 //   },
 // });
 
-import React from "react";
+import { useContext } from "react";
 import {
-  View,
-  Text,
-  Image,
-  Button,
-  ScrollView,
   Alert,
+  Button,
+  Image,
+  ScrollView,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
-import { useLocalSearchParams, router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
+import { CartContext } from "../../context/CartContext";
 import { products } from "..//../data/product";
+import {useCart} from "../../hooks/useCart";
+import { Ionicons } from "@expo/vector-icons";
+
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams();
   console.log("select id",id);
+
+  // const { addToCart } = useContext(CartContext);
+  const { addToCart,cartItems } = useCart();
+  console.log("items:",cartItems);
   const product = products.find((item) => item.id === id);
 
   if (!product) {
@@ -169,6 +178,9 @@ export default function ProductDetailsScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <TouchableOpacity onPress={() => router.replace("/product")}>
+  <Ionicons name="arrow-back" size={28} color="black" />
+</TouchableOpacity>
       <Image source={product.image} style={[styles.image,{alignSelf:"center"}]} />
 
       <Text style={[styles.name,{alignSelf:"center"}]}>{product.name}</Text>
@@ -228,6 +240,31 @@ export default function ProductDetailsScreen() {
           ])
         }
       /> */}
+
+ <Button
+  title="Add to Cart"
+  onPress={() => {
+    addToCart(product);
+
+    Alert.alert(
+      "Success",
+      "Product added to cart",
+      [
+        {
+          text: "Go to Cart",
+          onPress: () => router.push("/(tabs)/cart"),
+        },
+        {
+          text: "Continue Shopping",
+          style: "cancel",
+        },
+      ]
+    );
+  }}
+/>
+    
+
+
 
       <Button 
   title="Buy Now"

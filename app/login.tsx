@@ -112,6 +112,9 @@ else {
 </Text>
        <Text style={styles.error}>
   {passwordError}
+  <TouchableOpacity onPress={()=>router.push("/product")}>
+    <Text> product</Text>
+  </TouchableOpacity>
   <TouchableOpacity onPress={()=>router.push("/signup")}>
 
  <Text style={styles.account}> I dont have account</Text>
@@ -233,7 +236,8 @@ passwordInput: {
   },
   account :{
     marginLeft:200,
-    color:"blue"
+    color:"blue",
+    textDecorationLine:"underline"
   },
 
   input: {

@@ -102,7 +102,7 @@ const handlePlaceOrder = async () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
         <TouchableOpacity
-  style={styles.button}
+  style={styles.logout}
   onPress={()=>router.push("/login")}
 >
   <Text style={styles.title}>logout</Text>
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     borderRadius:8,
     alignItems:"center"
   },
+ 
   card :{
     width: "100%",
     backgroundColor: "#fff",
@@ -203,6 +204,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     marginTop:15,
+  },
+  logout :{
+    bottom: 10,
+    marginLeft:250
   },
   price :{
     marginTop:5

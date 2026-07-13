@@ -493,17 +493,62 @@ import { products } from "../../data/product";
 
 import Stack from "expo-router";
 
+import { useContext } from "react";
+
+import { ThemeContext } from "../../context/ThemeContext";
+
 export default function ProductsScreen() {
   const [search, setSearch] = useState("");
+  const { theme, setTheme } = useContext(ThemeContext);
+  const toggleTheme = () => {
+  if (theme === "light") {
+    setTheme("dark");
+  } else {
+    setTheme("light");
+  }
+};
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase()) // search filter based product name 
   );
 
   return (
-    <View style={styles.container}>
+    //<View style={styles.container}>
+  //   <View 
+  //     style={[
+  //   styles.container,
+  //   {
+  //     backgroundColor: theme === "light" ? "yellow" : "black",
+  //   },
+  // ]}>
+  <View
+  style={{
+    flex: 1,
+    backgroundColor: theme === "light" ? "yellow" : "white",
+  }}
+>
       <Text style={styles.title}>Products</Text>
-
+      <TouchableOpacity
+  onPress={toggleTheme}
+  style={{
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 20,
+  }}
+>
+  {/* <Text style={{ color: "white" }}>
+    {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+  </Text> */}
+ <Text
+  style={{
+    color: theme === "light" ? "black" : "white",
+    fontSize: 20,
+  }}
+>
+  {theme}
+</Text>
+</TouchableOpacity>
       <TextInput
         placeholder="Search Product"
         value={search}
@@ -550,11 +595,16 @@ export default function ProductsScreen() {
 }
 
 const styles = StyleSheet.create({
+  // container: {
+  //   flex: 1,
+  //   padding: 15,
+  //   //backgroundColor:'lightblue'
+  //   backgroundColor: theme === "light" ? "white" : "black",
+  // },
   container: {
-    flex: 1,
-    padding: 15,
-    backgroundColor:'lightblue'
-  },
+  flex: 1,
+  padding: 15,
+},
 
   title: {
     fontSize: 24,

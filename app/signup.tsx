@@ -330,6 +330,10 @@ else {
         title="Register"
         onPress={handleRegister}
       />
+      <TouchableOpacity onPress={()=>router.push("/login")}>
+      
+       <Text style={styles.account}> I have already account</Text>
+       </TouchableOpacity>
 
     </View>
   );
@@ -347,6 +351,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 25,
+  },
+   account :{
+    marginTop:10,
+    marginLeft:112,
+    color:"blue",
+    textDecorationLine:"underline"
   },
 
   passwordContainer: {
