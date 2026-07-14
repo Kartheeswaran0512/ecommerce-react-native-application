@@ -87,6 +87,16 @@ export default function TabLayout() {
             ),
                }}
                />
+
+                   <Tabs.Screen 
+               name="profile"
+               options={{
+                headerShown:false,
+                          tabBarIcon :({color,size})=>(
+              <Ionicons name="person-circle" color={color} size={size}/>
+            ),
+               }}
+               />
     </Tabs>
   );
 }

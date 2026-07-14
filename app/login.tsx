@@ -29,6 +29,9 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 
 import api from "../services/api";
@@ -36,11 +39,14 @@ import { router } from "expo-router";
 
 import ForgotPassword from "./forgetPassword";
 import { Ionicons } from "@expo/vector-icons";
+import { useAuth } from "../hooks/useAuth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { user, setUser } = useAuth();
 
   // const handleLogin = () => {
   //   Alert.alert(
@@ -86,12 +92,16 @@ else {
       email,
       password,
     });
+    setUser(response.data.user);
+
+    console.log("Logged in user:", response.data.user)
 
     Alert.alert("login successfully",response.data.message,[{
       text :"OK",
       //onPress:()=> router.push("/product"),
-      onPress:()=> router.replace("/(tabs)"),
+      onPress:()=> router.push("/(tabs)"),
     },]);
+    console.log(response.data);
     //console.log(response.data);
 
   } catch (error) {
@@ -104,6 +114,15 @@ else {
 
 
   return (
+     <SafeAreaView style={{ flex: 1 }}>
+     <KeyboardAvoidingView
+    style={{ flex: 1 }}
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+  >
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
 
@@ -112,9 +131,9 @@ else {
 </Text>
        <Text style={styles.error}>
   {passwordError}
-  <TouchableOpacity onPress={()=>router.push("/product")}>
-    <Text> product</Text>
-  </TouchableOpacity>
+  {/* <TouchableOpacity onPress={()=>router.push("/product")}>
+    <Text> product</Text> */}
+  {/* </TouchableOpacity> */}
   <TouchableOpacity onPress={()=>router.push("/signup")}>
 
  <Text style={styles.account}> I dont have account</Text>
@@ -177,6 +196,9 @@ else {
         </TouchableOpacity>
         
     </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 

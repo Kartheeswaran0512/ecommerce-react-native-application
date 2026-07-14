@@ -524,7 +524,7 @@ export default function ProductsScreen() {
   <View
   style={{
     flex: 1,
-    backgroundColor: theme === "light" ? "yellow" : "white",
+    backgroundColor: theme === "light" ? "lighblue" : "white",
   }}
 >
       <Text style={styles.title}>Products</Text>
@@ -542,7 +542,7 @@ export default function ProductsScreen() {
   </Text> */}
  <Text
   style={{
-    color: theme === "light" ? "black" : "white",
+    color: theme === "light" ? "grey" : "white",
     fontSize: 20,
   }}
 >

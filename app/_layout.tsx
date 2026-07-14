@@ -27,9 +27,11 @@
 import { Stack } from "expo-router";
 import { CartProvider } from "../context/CartContext";
 import { ThemeProvider } from "../context/ThemeContext";
+import { AuthProvider } from "../context/Authcontex";
 
 export default function RootLayout() {
   return (
+    <AuthProvider>
     <ThemeProvider>
       <CartProvider>
     <Stack screenOptions={{ headerShown: false }}>
@@ -41,5 +43,6 @@ export default function RootLayout() {
     </Stack>
     </CartProvider>
     </ThemeProvider>
+    </AuthProvider>
   );
 }

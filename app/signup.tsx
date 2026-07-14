@@ -145,12 +145,16 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 
 import { router } from "expo-router";
 
 import api from "../services/api";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -230,6 +234,7 @@ else {
     email,
     password,
   });
+  console.log("signup data:",name,email,password);
 
   Alert.alert(
     "Success",
@@ -250,11 +255,19 @@ else {
 };
 
   return (
+    <SafeAreaView style={{ flex: 1 }}>
+       <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled">
     <View style={styles.container}>
 
       <Text style={styles.title}>Sign Up</Text>
 
-      <Text>Name</Text>
+      <Text style={styles.text}>Name</Text>
       <TextInput
         placeholder="Enter Name"
         value={name}
@@ -263,7 +276,7 @@ else {
       />
       <Text style={styles.error}>{nameError}</Text>
 
-      <Text>Email</Text>
+      <Text style={styles.text}>Email</Text>
       <TextInput
         placeholder="Enter Email"
         value={email}
@@ -280,6 +293,7 @@ else {
         secureTextEntry
         style={styles.input}
       /> */}
+      <Text style={styles.text}>Password</Text>
       <View style={styles.passwordContainer}>
   <TextInput
     placeholder="Enter Password"
@@ -307,6 +321,7 @@ else {
         secureTextEntry
         style={styles.input}
       /> */}
+        <Text style={styles.text}>Confirm Password</Text>
       <View style={styles.passwordContainer}>
   <TextInput
     placeholder="Confirm Password"
@@ -336,6 +351,9 @@ else {
        </TouchableOpacity>
 
     </View>
+    </ScrollView>
+    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -345,7 +363,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
   },
-
+  text :{
+    marginLeft:5
+  },
   title: {
     fontSize: 30,
     fontWeight: "bold",
